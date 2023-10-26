@@ -1,5 +1,5 @@
 import useAuth from "../../hooks/useAuth";
-import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import MainLayout from "../layout/MainLayout";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -62,15 +62,15 @@ const LoginPage = () => {
 
     return (
         <MainLayout>
-            <h1 className="text-center">Login</h1>
+            <h1 className="text-center">Вхід</h1>
 
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
-                    <Form.Label>Login</Form.Label>
+                    <Form.Label>Логін</Form.Label>
                     <Form.Control
                         autoFocus
                         type="text"
-                        placeholder="Login"
+                        placeholder="Логін"
                         name="login"
                         value={inputs.login}
                         onChange={handleChange}
@@ -81,10 +81,10 @@ const LoginPage = () => {
                     </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group className="mb-3">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label>Пароль</Form.Label>
                     <Form.Control
                         type="password"
-                        placeholder="Password"
+                        placeholder="Пароль"
                         name="password"
                         value={inputs.password}
                         onChange={handleChange}
@@ -95,15 +95,9 @@ const LoginPage = () => {
                     </Form.Control.Feedback>
                 </Form.Group>
                 <Button type="submit">
-                    Login
+                    Логін
                 </Button>
             </Form>
-
-            <div>
-                <Link to={'/signup'}>
-                    Signup
-                </Link>
-            </div>
         </MainLayout>
     )
 }

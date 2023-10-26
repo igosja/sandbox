@@ -7,7 +7,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    private const TABLE = 'personal_access_tokens';
+    private const TABLE = 'lunch_categories';
 
     /**
      * @return void
@@ -18,13 +18,9 @@ return new class extends Migration {
             self::TABLE,
             function (Blueprint $table) {
                 $table->id();
-                $table->text('abilities')->nullable();
                 $table->unsignedInteger('created_at');
-                $table->unsignedInteger('expires_at')->nullable();
-                $table->unsignedInteger('last_used_at')->nullable();
-                $table->string('name');
-                $table->string('token', 64)->unique();
-                $table->morphs('tokenable');
+                $table->boolean('is_active')->default(false);
+                $table->string('name')->unique();
                 $table->unsignedInteger('updated_at');
             }
         );

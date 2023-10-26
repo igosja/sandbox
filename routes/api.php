@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Lunch\CategoryController;
+use App\Http\Controllers\Lunch\DishController;
+use App\Http\Controllers\Lunch\LunchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,8 +19,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('lunch')->group(function () {
+        Route::get('', [LunchController::class, 'index']);
+        Route::controller(CategoryController::class)->prefix('categories')->group(function () {
+            Route::get('', 'index');
+            Route::get('{category}', 'show');
+            Route::put('{category}', 'update');
+        });
+        Route::controller(DishController::class)->prefix('dishes')->group(function () {
+            Route::get('', 'index');
+            Route::get('{dish}', 'show');
+            Route::put('{dish}', 'update');
+        });
+    });
 });
 
 Route::post('login', [AuthController::class, 'login']);
