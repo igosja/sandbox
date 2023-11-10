@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Lunch\CategoryController;
 use App\Http\Controllers\Lunch\DishController;
 use App\Http\Controllers\Lunch\LunchController;
+use App\Http\Controllers\Uefa\UefaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +33,9 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('{dish}', 'show');
             Route::put('{dish}', 'update');
         });
+    });
+    Route::prefix('uefa')->group(function () {
+        Route::get('', [UefaController::class, 'index']);
     });
 });
 

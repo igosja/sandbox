@@ -30,6 +30,9 @@ function MainLayout({children}: PropsWithChildren) {
                                         Категорії
                                     </NavDropdown.Item>
                                 </NavDropdown>
+                                <Nav.Link href={'/uefa'}>
+                                    UEFA
+                                </Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
