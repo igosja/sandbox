@@ -14,11 +14,11 @@ use Laravel\Sanctum\HasApiTokens;
  * @package App\Models
  *
  * @property int id
- * @property string created_at
+ * @property int created_at
  * @property string login
  * @property string password
  * @property string remember_token
- * @property string updated_at
+ * @property int updated_at
  */
 class User extends Authenticatable
 {

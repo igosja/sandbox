@@ -7,7 +7,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    private const TABLE = 'personal_access_tokens';
+    private const TABLE = 'lunch_dishes';
 
     /**
      * @return void
@@ -16,16 +16,22 @@ return new class extends Migration {
     {
         Schema::create(
             self::TABLE,
-            function (Blueprint $table) {
+            static function (Blueprint $table) {
                 $table->id();
-                $table->text('abilities')->nullable();
+                $table->bigInteger('category_id')->unsigned();
                 $table->unsignedInteger('created_at');
-                $table->unsignedInteger('expires_at')->nullable();
-                $table->unsignedInteger('last_used_at')->nullable();
-                $table->string('name');
-                $table->string('token', 64)->unique();
-                $table->morphs('tokenable');
+                $table->boolean('is_active')->default(false);
+                $table->boolean('is_favorite')->default(false);
+                $table->boolean('is_ordered')->default(false);
+                $table->string('name')->unique();
                 $table->unsignedInteger('updated_at');
+            }
+        );
+
+        Schema::table(
+            self::TABLE,
+            static function (Blueprint $table) {
+                $table->foreign('category_id')->references('id')->on('lunch_categories');
             }
         );
     }
