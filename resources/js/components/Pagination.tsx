@@ -26,4 +26,3 @@ function Pagination({links}) {
 }
 
 export default Pagination;
-

@@ -3,6 +3,7 @@ import axios from 'axios';
 import MainLayout from "../../layout/MainLayout";
 import {Link, useSearchParams} from "react-router-dom";
 import Pagination from "../../../components/Pagination";
+import FilterRow from "../../../components/FilterRow";
 
 function IndexPage() {
     const url = '/api/lunch/categories';
@@ -50,14 +51,6 @@ function IndexPage() {
         searchParams.set('sorting', value);
         setSearchParams(searchParams);
     }
-    const handleChangeFilter = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-
-        searchParams.set(name, value);
-        searchParams.set('page', '1');
-        setSearchParams(searchParams);
-    };
 
     useEffect(() => {
         fetchData();
@@ -97,30 +90,12 @@ function IndexPage() {
                             </th>
                             <th className="col-lg-1">&nbsp;</th>
                         </tr>
-                        <tr className="filters">
-                            <td>
-                                <input
-                                    id="filter-id"
-                                    type="number"
-                                    className="form-control"
-                                    name="filters.id"
-                                    value={searchParams.get('filters.id')}
-                                    onChange={handleChangeFilter}
-                                />
-                            </td>
-                            <td>
-                                <input
-                                    id="filter-name"
-                                    type="text"
-                                    className="form-control"
-                                    name="filters.name"
-                                    value={searchParams.get('filters.name')}
-                                    onChange={handleChangeFilter}
-                                />
-                            </td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
+                        <FilterRow filters={[
+                            {name: 'id', type: 'number'},
+                            {name: 'name', type: 'text'},
+                            {name: '', type: ''},
+                            {name: '', type: ''}
+                        ]}/>
                         </thead>
                         <tbody>
                         {categories.map(({id, is_active, name}) => (
