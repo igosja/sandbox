@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import MainLayout from "../../layout/MainLayout";
 import {Link, useSearchParams} from "react-router-dom";
+import Pagination from "../../../components/Pagination";
 
 function IndexPage() {
     const url = '/api/lunch/dishes';
@@ -10,12 +11,16 @@ function IndexPage() {
         from: 1,
         to: 1,
         total: 1,
-        links: [
-            {url: '', label: '', active: true}
-        ]
+        links: []
     });
     const [searchParams, setSearchParams] = useSearchParams();
     const fetchData = () => {
+        setMeta({
+            from: 1,
+            to: 1,
+            total: 1,
+            links: []
+        });
         axios
             .get(url + '?page=' + (searchParams.get('page') ?? 1), {
                 headers: {
@@ -35,13 +40,6 @@ function IndexPage() {
                 setMeta(data.data.meta)
             });
     };
-    const usePagination = (page) => {
-        page = page.split('?');
-        const params = new URLSearchParams(page[1]);
-
-        searchParams.set('page', params.get('page'));
-        setSearchParams(searchParams);
-    }
     const useSorting = (value) => {
         if (searchParams.get('sorting') == value) {
             value = '-' + value;
@@ -165,17 +163,7 @@ function IndexPage() {
                         ))}
                         </tbody>
                     </table>
-                    <nav>
-                        <ul className="pagination">
-                            {meta.links.map(({url, label, active}) => (
-                                <li className={(active ? 'active' : '') + ' page-item'} key={url}>
-                                    <a onClick={() => usePagination((url ? url : '1'))} className="page-link">
-                                        {label}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    </nav>
+                    <Pagination links={meta.links}/>
                 </div>
             </div>
         </MainLayout>
