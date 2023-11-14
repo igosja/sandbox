@@ -4,6 +4,7 @@ import MainLayout from "../../layout/MainLayout";
 import {Link, useSearchParams} from "react-router-dom";
 import Pagination from "../../../components/Pagination";
 import FilterRow from "../../../components/FilterRow";
+import SortingRow from "../../../components/SortingRow";
 
 function IndexPage() {
     const url = '/api/lunch/categories';
@@ -41,16 +42,6 @@ function IndexPage() {
                 setMeta(data.data.meta)
             });
     };
-    const useSorting = (value) => {
-        if (searchParams.get('sorting') == value) {
-            value = '-' + value;
-        } else if (searchParams.get('sorting') == '-' + value) {
-            value = '';
-        }
-
-        searchParams.set('sorting', value);
-        setSearchParams(searchParams);
-    }
 
     useEffect(() => {
         fetchData();
@@ -72,24 +63,12 @@ function IndexPage() {
                     </div>
                     <table className="table table-bordered table-hover">
                         <thead>
-                        <tr>
-                            <th className="col-lg-1">
-                                <a href="javascript:" onClick={() => useSorting('id')}>
-                                    ID
-                                </a>
-                            </th>
-                            <th>
-                                <a href="javascript:" onClick={() => useSorting('name')}>
-                                    Назва
-                                </a>
-                            </th>
-                            <th>
-                                <a href="javascript:" onClick={() => useSorting('is_active')}>
-                                    Активна
-                                </a>
-                            </th>
-                            <th className="col-lg-1">&nbsp;</th>
-                        </tr>
+                        <SortingRow sorting={[
+                            {label: 'ID', name: 'id', empty: false},
+                            {label: 'Назва', name: 'name', empty: false},
+                            {label: 'Активна', name: 'is_active', empty: false},
+                            {empty: true},
+                        ]}/>
                         <FilterRow filters={[
                             {name: 'id', type: 'number'},
                             {name: 'name', type: 'text'},
