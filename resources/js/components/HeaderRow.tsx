@@ -11,5 +11,4 @@ function HeaderRow({header}) {
     );
 }
 
-export default HeaderRow;
-
+export default React.memo(HeaderRow);
