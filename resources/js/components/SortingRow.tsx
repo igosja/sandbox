@@ -16,15 +16,15 @@ function SortingRow({sorting}) {
 
     return (
         <tr>
-            {sorting.map(({label, name, empty}) => (
-                empty ?
-                    (<th>&nbsp;</th>)
-                    :
+            {sorting.map(({sorting, label, name}) => (
+                false != sorting ?
                     (<th>
                         <a href="javascript:" onClick={() => useSorting(name)}>
                             {label}
                         </a>
                     </th>)
+                    :
+                    (<th>&nbsp;</th>)
             ))}
         </tr>
     );

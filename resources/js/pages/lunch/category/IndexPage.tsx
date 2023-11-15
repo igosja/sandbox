@@ -3,8 +3,7 @@ import axios from 'axios';
 import MainLayout from "../../layout/MainLayout";
 import {Link, useSearchParams} from "react-router-dom";
 import Pagination from "../../../components/Pagination";
-import FilterRow from "../../../components/FilterRow";
-import SortingRow from "../../../components/SortingRow";
+import HeaderRow from "../../../components/HeaderRow";
 
 function IndexPage() {
     const url = '/api/lunch/categories';
@@ -62,20 +61,12 @@ function IndexPage() {
                     </b> записів.
                     </div>
                     <table className="table table-bordered table-hover">
-                        <thead>
-                        <SortingRow sorting={[
-                            {label: 'ID', name: 'id', empty: false},
-                            {label: 'Назва', name: 'name', empty: false},
-                            {label: 'Активна', name: 'is_active', empty: false},
-                            {empty: true},
+                        <HeaderRow header={[
+                            {label: 'ID', name: 'id', type: 'number'},
+                            {label: 'Назва', name: 'name', type: 'text'},
+                            {label: 'Активна', name: 'is_active', filter: false},
+                            {sorting: false, filter: false},
                         ]}/>
-                        <FilterRow filters={[
-                            {name: 'id', type: 'number'},
-                            {name: 'name', type: 'text'},
-                            {name: '', type: ''},
-                            {name: '', type: ''}
-                        ]}/>
-                        </thead>
                         <tbody>
                         {categories.map(({id, is_active, name}) => (
                             <tr key={id}>

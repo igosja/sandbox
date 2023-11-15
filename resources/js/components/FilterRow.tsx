@@ -14,10 +14,8 @@ function FilterRow({filters}) {
 
     return (
         <tr className="filters">
-            {filters.map(({name, type}) => (
-                '' == type ?
-                    (<td>&nbsp;</td>)
-                    :
+            {filters.map(({filter, name, type}) => (
+                false != filter ?
                     (<td>
                         <input
                             id={'filter-' + name}
@@ -28,6 +26,8 @@ function FilterRow({filters}) {
                             onChange={handleChangeFilter}
                         />
                     </td>)
+                    :
+                    (<td>&nbsp;</td>)
             ))}
         </tr>
     );
