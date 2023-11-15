@@ -1,43 +1,11 @@
-import {PropsWithChildren} from "react";
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar'
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import React, {PropsWithChildren} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import LayoutHeader from "../../components/LayoutHeader";
 
 function MainLayout({children}: PropsWithChildren) {
     return (
         <section>
-            <header id="header">
-                <Navbar expand="lg" className="bg-body-tertiary">
-                    <Container>
-                        <Navbar.Brand href={'/'}>Sandbox</Navbar.Brand>
-                        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-                        <Navbar.Collapse id="basic-navbar-nav">
-                            <Nav className="me-auto">
-                                <Nav.Link href={'/'}>
-                                    Головна
-                                </Nav.Link>
-                                <NavDropdown title="Обід" id="lunch-dropdown">
-                                    <NavDropdown.Item href={'/lunch'}>
-                                        Меню
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Divider/>
-                                    <NavDropdown.Item href={'/lunch/dishes'}>
-                                        Страви
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Item href={'/lunch/categories'}>
-                                        Категорії
-                                    </NavDropdown.Item>
-                                </NavDropdown>
-                                <Nav.Link href={'/uefa'}>
-                                    UEFA
-                                </Nav.Link>
-                            </Nav>
-                        </Navbar.Collapse>
-                    </Container>
-                </Navbar>
-            </header>
+            <LayoutHeader/>
             <main id="main" className="flex-shrink-0" role="main">
                 <div className="container">
                     {children}
@@ -55,4 +23,4 @@ function MainLayout({children}: PropsWithChildren) {
     );
 }
 
-export default MainLayout;
+export default React.memo(MainLayout);

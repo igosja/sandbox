@@ -30,5 +30,4 @@ function SortingRow({sorting}) {
     );
 }
 
-export default SortingRow;
-
+export default React.memo(SortingRow);

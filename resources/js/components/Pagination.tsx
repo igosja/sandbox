@@ -1,4 +1,5 @@
 import {useSearchParams} from "react-router-dom";
+import React from "react";
 
 function Pagination({links}) {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -25,4 +26,4 @@ function Pagination({links}) {
     );
 }
 
-export default Pagination;
+export default React.memo(Pagination);

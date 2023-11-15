@@ -33,4 +33,4 @@ function FilterRow({filters}) {
     );
 }
 
-export default FilterRow;
+export default React.memo(FilterRow);
