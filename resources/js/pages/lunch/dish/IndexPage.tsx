@@ -3,8 +3,7 @@ import axios from 'axios';
 import MainLayout from "../../layout/MainLayout";
 import {Link, useSearchParams} from "react-router-dom";
 import Pagination from "../../../components/Pagination";
-import FilterRow from "../../../components/FilterRow";
-import SortingRow from "../../../components/SortingRow";
+import HeaderRow from "../../../components/HeaderRow";
 
 function IndexPage() {
     const url = '/api/lunch/dishes';
@@ -62,20 +61,12 @@ function IndexPage() {
                     </b> записів.
                     </div>
                     <table className="table table-bordered table-hover">
-                        <thead>
-                        <SortingRow sorting={[
-                            {label: 'ID', name: 'id', empty: false},
-                            {label: 'Назва', name: 'name', empty: false},
-                            {label: 'Фаворит', name: 'is_favorite', empty: false},
-                            {empty: true},
+                        <HeaderRow header={[
+                            {label: 'ID', name: 'id', type: 'number'},
+                            {label: 'Назва', name: 'name', type: 'text'},
+                            {label: 'Фаворит', name: 'is_favorite', filter: false},
+                            {sorting: false, filter: false},
                         ]}/>
-                        <FilterRow filters={[
-                            {name: 'id', type: 'number'},
-                            {name: 'name', type: 'text'},
-                            {name: '', type: ''},
-                            {name: '', type: ''}
-                        ]}/>
-                        </thead>
                         <tbody>
                         {dishes.map(({id, is_favorite, is_ordered, name}) => (
                             <tr key={id}>

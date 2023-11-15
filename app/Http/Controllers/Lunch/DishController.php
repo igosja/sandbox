@@ -36,7 +36,8 @@ class DishController extends AbstractController
         }
 
 
-        $dishes = Dish::orderBy($sortingField, $sortingOrder)
+        $dishes = Dish::orderBy('is_ordered', 'asc')
+            ->orderBy($sortingField, $sortingOrder)
             ->where('is_active', true)
             ->whereIn('category_id', Category::select('id')->where('is_active', true));
         if ($request->validated('filters.id')) {
