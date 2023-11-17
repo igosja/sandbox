@@ -39,4 +39,5 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 });
 
+Route::get('dishes', [DishController::class, 'index']);
 Route::post('login', [AuthController::class, 'login']);
