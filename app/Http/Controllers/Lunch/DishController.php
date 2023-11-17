@@ -7,10 +7,10 @@ namespace App\Http\Controllers\Lunch;
 use App\Http\Controllers\AbstractController;
 use App\Http\Requests\Lunch\Dish\IndexRequest;
 use App\Http\Requests\Lunch\Dish\UpdateRequest;
+use App\Http\Resources\Lunch\DishResource;
 use App\Models\Lunch\Category;
 use App\Models\Lunch\Dish;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * Class DishController
@@ -48,26 +48,26 @@ class DishController extends AbstractController
         }
         $dishes = $dishes->paginate();
 
-        return JsonResource::collection($dishes);
+        return DishResource::collection($dishes);
     }
 
     /**
      * @param Dish $dish
-     * @return JsonResource
+     * @return DishResource
      */
-    public function show(Dish $dish): JsonResource
+    public function show(Dish $dish): DishResource
     {
-        return new JsonResource($dish);
+        return new DishResource($dish);
     }
 
     /**
      * @param UpdateRequest $request
      * @param Dish $dish
-     * @return JsonResource
+     * @return DishResource
      */
-    public function update(UpdateRequest $request, Dish $dish): JsonResource
+    public function update(UpdateRequest $request, Dish $dish): DishResource
     {
         $dish->update($request->validated());
-        return new JsonResource($dish);
+        return new DishResource($dish);
     }
 }

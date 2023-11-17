@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models\Lunch;
 
 use App\Models\AbstractModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Dish
@@ -18,6 +19,8 @@ use App\Models\AbstractModel;
  * @property bool is_ordered
  * @property string name
  * @property int updated_at
+ *
+ * @property Category $category
  */
 class Dish extends AbstractModel
 {
@@ -35,4 +38,9 @@ class Dish extends AbstractModel
         'is_ordered',
         'name',
     ];
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

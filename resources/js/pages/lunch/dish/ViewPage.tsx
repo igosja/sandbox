@@ -8,6 +8,9 @@ function ViewPage() {
     const [dish, setDish] = useState({
         id: '',
         category_id: 0,
+        category: {
+            name: ''
+        },
         created_at: '',
         is_active: 0,
         is_favorite: 0,
@@ -23,7 +26,10 @@ function ViewPage() {
             .get(url + params.id, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('access_token')}`
-                }
+                },
+                params: {
+                    expand: 'category',
+                },
             })
             .then(data => {
                 setDish(data.data.data)
@@ -62,7 +68,7 @@ function ViewPage() {
                     </tr>
                     <tr>
                         <th>Категорія</th>
-                        <td>{dish.category_id}</td>
+                        <td>{dish.category.name}</td>
                     </tr>
                     <tr>
                         <th>Активність</th>
