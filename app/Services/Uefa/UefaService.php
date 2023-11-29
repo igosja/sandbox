@@ -29,6 +29,7 @@ class UefaService
         $data = [];
 
         $dom = new Dom();
+        $dom->loadFromFile(storage_path('app/uefa.html'));
         $dom->loadFromUrl('https://news.sportbox.ru/Vidy_sporta/Futbol/stats/uefatable');
         $uefaTable = $dom->find('.uefa-table')[0];
         $countryList = $uefaTable->find('.country');
