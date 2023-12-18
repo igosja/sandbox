@@ -22,6 +22,7 @@
         "react-bootstrap": "^2.9.1",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.17.0",
+        "react-string-replace": "^1.1.1",
         "typescript": "^5.2.2"
     }
 }
