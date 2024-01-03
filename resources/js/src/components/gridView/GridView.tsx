@@ -7,6 +7,7 @@ import Table from "./table/Table";
 import MainLayout from "../../pages/layout/MainLayout";
 import Header from "./header/Header";
 import ButtonList from "./buttonList/ButtonList";
+import Placeholder from "../../components/placeholder/Placeholder";
 
 function GridView({config}) {
     const initConfig = {
@@ -51,19 +52,25 @@ function GridView({config}) {
         fetchData();
     }, [setSearchParams]);
 
-    return (
-        <MainLayout>
-            <Header/>
-            <ButtonList config={currentConfig}/>
-            <div className='row'>
-                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-                    <Summary meta={meta}/>
-                    <Table config={currentConfig} items={items}/>
-                    <Pagination links={meta.links}/>
+    if (items.length) {
+        return (
+            <MainLayout>
+                <Header/>
+                <ButtonList config={currentConfig}/>
+                <div className='row'>
+                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+                        <Summary meta={meta}/>
+                        <Table config={currentConfig} items={items}/>
+                        <Pagination links={meta.links}/>
+                    </div>
                 </div>
-            </div>
-        </MainLayout>
-    );
+            </MainLayout>
+        );
+    } else {
+        return (
+            <Placeholder/>
+        );
+    }
 }
 
 export default React.memo(GridView);
