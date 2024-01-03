@@ -5,6 +5,7 @@ import axios from "../axios/Axios";
 import Header from "./header/Header";
 import ButtonList from "./buttonList/ButtonList";
 import MainLayout from "../../pages/layout/MainLayout";
+import Placeholder from "../../components/placeholder/Placeholder";
 
 function FormView({config}) {
     const initConfig = {
@@ -78,20 +79,26 @@ function FormView({config}) {
         setValidated(true);
     };
 
-    return (
-        <MainLayout>
-            <Header config={currentConfig} item={item}/>
-            <ButtonList/>
-            <FormElement
-                fields={config.fields}
-                formData={formData}
-                errors={errors}
-                validated={validated}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-            />
-        </MainLayout>
-    );
+    if ((item && params.id) || !params.id) {
+        return (
+            <MainLayout>
+                <Header config={currentConfig} item={item}/>
+                <ButtonList/>
+                <FormElement
+                    fields={config.fields}
+                    formData={formData}
+                    errors={errors}
+                    validated={validated}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                />
+            </MainLayout>
+        );
+    } else {
+        return (
+            <Placeholder/>
+        );
+    }
 }
 
 export default React.memo(FormView);

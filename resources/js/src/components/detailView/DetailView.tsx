@@ -5,6 +5,7 @@ import Header from "./header/Header";
 import ButtonList from "./buttonList/ButtonList";
 import Table from "./table/Table";
 import MainLayout from "../../pages/layout/MainLayout";
+import Placeholder from "../../components/placeholder/Placeholder";
 
 function DetailView({config}) {
     const initConfig = {
@@ -31,15 +32,21 @@ function DetailView({config}) {
         fetchData();
     }, []);
 
-    return (
-        <MainLayout>
-            <Header config={currentConfig} item={item}/>
-            <ButtonList config={currentConfig}/>
-            <div className="row">
-                <Table config={config} item={item}/>
-            </div>
-        </MainLayout>
-    );
+    if (item) {
+        return (
+            <MainLayout>
+                <Header config={currentConfig} item={item}/>
+                <ButtonList config={currentConfig}/>
+                <div className="row">
+                    <Table config={config} item={item}/>
+                </div>
+            </MainLayout>
+        );
+    } else {
+        return (
+            <Placeholder/>
+        );
+    }
 }
 
 export default React.memo(DetailView);
