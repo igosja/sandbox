@@ -150,16 +150,6 @@ return [
             'database' => env('REDIS_CACHE_DB', '1'),
         ],
 
-        'session' => [
-            'url' => env('REDIS_URL'),
-            'host' => env('REDIS_HOST', $localHost),
-            'username' => env('REDIS_USERNAME'),
-            'password' => env('REDIS_PASSWORD'),
-            'port' => env('REDIS_PORT', '6379'),
-            'database' => '0',
-            'prefix' => 's:'
-        ],
-
     ],
 
 ];
