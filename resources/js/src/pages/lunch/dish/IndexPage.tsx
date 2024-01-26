@@ -21,6 +21,13 @@ function IndexPage() {
                     label: 'Назва',
                 },
                 {
+                    attribute: 'is_ordered',
+                    headerOptions: {
+                        class: 'text-center',
+                    },
+                    label: 'Замовляв',
+                },
+                {
                     attribute: 'is_favorite',
                     headerOptions: {
                         class: 'text-center',
