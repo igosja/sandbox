@@ -18,6 +18,7 @@ function GridView({config}) {
     const currentConfig = {...initConfig, ...config};
 
     const [items, setItems] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const [meta, setMeta] = useState({
         from: 1,
         to: 1,
@@ -33,6 +34,8 @@ function GridView({config}) {
             fields.push(column.attribute);
             filters[column.attribute] = searchParams.get('filters.' + column.attribute);
         });
+
+        setIsLoading(true);
         axios
             .get(currentConfig.apiUrl + '?page=' + (searchParams.get('page') ?? 1), {
                 params: {
@@ -43,8 +46,9 @@ function GridView({config}) {
                 },
             })
             .then(data => {
-                setItems(data.data.data)
-                setMeta(data.data.meta)
+                setItems(data.data.data);
+                setMeta(data.data.meta);
+                setIsLoading(false);
             });
     };
 
@@ -52,7 +56,11 @@ function GridView({config}) {
         fetchData();
     }, [setSearchParams]);
 
-    if (items.length) {
+    if (isLoading) {
+        return (
+            <Placeholder/>
+        );
+    } else {
         return (
             <MainLayout>
                 <Header/>
@@ -65,10 +73,6 @@ function GridView({config}) {
                     </div>
                 </div>
             </MainLayout>
-        );
-    } else {
-        return (
-            <Placeholder/>
         );
     }
 }
