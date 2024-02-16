@@ -7,7 +7,6 @@ import Table from "./table/Table";
 import MainLayout from "../../pages/layout/MainLayout";
 import Header from "./header/Header";
 import ButtonList from "./buttonList/ButtonList";
-import Placeholder from "../../components/placeholder/Placeholder";
 
 function GridView({config}) {
     const initConfig = {
@@ -18,7 +17,6 @@ function GridView({config}) {
     const currentConfig = {...initConfig, ...config};
 
     const [items, setItems] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
     const [meta, setMeta] = useState({
         from: 1,
         to: 1,
@@ -35,7 +33,6 @@ function GridView({config}) {
             filters[column.attribute] = searchParams.get('filters.' + column.attribute);
         });
 
-        setIsLoading(true);
         axios
             .get(currentConfig.apiUrl + '?page=' + (searchParams.get('page') ?? 1), {
                 params: {
@@ -48,7 +45,6 @@ function GridView({config}) {
             .then(data => {
                 setItems(data.data.data);
                 setMeta(data.data.meta);
-                setIsLoading(false);
             });
     };
 
@@ -56,25 +52,19 @@ function GridView({config}) {
         fetchData();
     }, [setSearchParams]);
 
-    if (isLoading) {
-        return (
-            <Placeholder/>
-        );
-    } else {
-        return (
-            <MainLayout>
-                <Header/>
-                <ButtonList config={currentConfig}/>
-                <div className='row'>
-                    <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
-                        <Summary meta={meta}/>
-                        <Table config={currentConfig} items={items}/>
-                        <Pagination links={meta.links}/>
-                    </div>
+    return (
+        <MainLayout>
+            <Header/>
+            <ButtonList config={currentConfig}/>
+            <div className='row'>
+                <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-responsive">
+                    <Summary meta={meta}/>
+                    <Table config={currentConfig} items={items}/>
+                    <Pagination links={meta.links}/>
                 </div>
-            </MainLayout>
-        );
-    }
+            </div>
+        </MainLayout>
+    );
 }
 
 export default React.memo(GridView);
