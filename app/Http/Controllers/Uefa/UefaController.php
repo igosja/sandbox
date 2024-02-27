@@ -9,7 +9,7 @@ use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * Class IndexController
+ * Class UefaController
  * @package App\Http\Controllers\Uefa
  */
 class UefaController extends AbstractController
