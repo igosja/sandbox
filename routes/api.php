@@ -7,6 +7,7 @@ use App\Http\Controllers\Lunch\CategoryController;
 use App\Http\Controllers\Lunch\DishController;
 use App\Http\Controllers\Lunch\LunchController;
 use App\Http\Controllers\Uefa\UefaController;
+use App\Http\Controllers\VfLeague\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +37,11 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::prefix('uefa')->group(function () {
         Route::get('', [UefaController::class, 'index']);
+    });
+    Route::prefix('vf-league')->group(function () {
+        Route::controller(ReviewController::class)->prefix('reviews')->group(function () {
+            Route::post('', 'create');
+        });
     });
 });
 

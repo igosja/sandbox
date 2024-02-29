@@ -31,6 +31,11 @@ function LayoutHeader() {
                             <Nav.Link href={'/uefa'}>
                                 UEFA
                             </Nav.Link>
+                            <NavDropdown title="ВСОЛ" id="lunch-dropdown">
+                                <NavDropdown.Item href={'/vf-league/review'}>
+                                    Огляд
+                                </NavDropdown.Item>
+                            </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
