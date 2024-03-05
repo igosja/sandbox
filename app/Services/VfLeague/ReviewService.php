@@ -163,7 +163,7 @@ class ReviewService
         'Казалось, эпизод на {minute}-й минуте матча, завершился ничем - мяч летел вдоль ворот. Однако удар оказался замечательным пасом и {player} на него откликнулся. {score}',
         'Мгновенно произошло переключение из защиты в атаку, когда во время очередной контратаки на {minute}-й минуте матча {player} прошел по центру поля и забил гол. {score}',
         'Мяч почти ушел за линию ворот, но {assist} в последний момент смог отдать пас под очень острым углом, и {player} нв {minute}-й минуте замкнул передачу на ближней штанге. {score}',
-        'На {minute}-й минуте d результате атаки по флангу {player} забил гол, воспользовавшись грубой ошибкой защиты. {score}',
+        'На {minute}-й минуте в результате атаки по флангу {player} забил гол, воспользовавшись грубой ошибкой защиты. {score}',
         'На {minute}-й минуте {player} воспользовался ошибкой защитников на фланге и метко пробил по воротам. {score}',
         'На {minute}-й минуте {player} забил гол с невероятной дистанции. {score}',
         'На {minute}-й минуте {player} завершил атаку по флангу великолепным ударом через себя. {score}',
@@ -657,76 +657,6 @@ class ReviewService
             $result[] = 'Гости смогли подловить соперника на коллизии.';
         }
 
-        if ($this->gameData['home_defence_loose'] && $this->gameData['guest_defence_loose']) {
-            $result[] = 'Оба тренера немного намудрили с защитными построениями и получили штраф в обороне.';
-        } elseif ($this->gameData['guest_defence_loose']) {
-            $result[] = 'Тренер гостей не угадал з форматом защиты из-за чего игроки иногда выглядели растерянными.';
-        } elseif ($this->gameData['home_defence_loose']) {
-            $result[] = 'Домашняя команда при выборе защитного построения обманула сама себя, чем подарила сопернику пару лишних моментов.';
-        }
-
-        if ('Грубая' == $this->gameData['home_rudeness'] && 'Грубая' == $this->gameData['guest_defence_loose']) {
-            $result[] = 'Оба наставника решили пойти на риск и начали матч с грубой.';
-        } elseif ($this->gameData['guest_defence_loose']) {
-            $result[] = 'Гости приняли решение играть в этом матче грубо с первых минут.';
-        } elseif ($this->gameData['home_defence_loose']) {
-            $result[] = 'Хозяева решили сыграть грубо перед своими болельщиками.';
-        }
-
-        if ($this->gameData['home_atmosphere'] < 0 && $this->gameData['guest_atmosphere'] < 0) {
-            $result[] = 'Обе команды подошли к матчу не в лучшей психологической форме - атмосфера съела часть полосок силы.';
-        } elseif ($this->gameData['home_atmosphere'] > 0 && $this->gameData['guest_atmosphere'] > 0) {
-            $result[] = 'Обе команды подошли к матчу хорошей психологической форме - атмосфера обоюдно добавила свой бонус.';
-        } elseif ($this->gameData['home_atmosphere'] < 0 && $this->gameData['guest_atmosphere'] > 0) {
-            $result[] = 'Атмосфера сыграла на руку хозяевам - они хорошо настроились на матч, а вот гости подошли к игре не готовыми.';
-        } elseif ($this->gameData['home_atmosphere'] > 0 && $this->gameData['guest_atmosphere'] < 0) {
-            $result[] = 'Атмосфера сыграла на руку гостям - они хорошо настроились на матч, а вот хозяева подошли к игре не готовыми.';
-        } elseif ($this->gameData['home_atmosphere'] < 0) {
-            $result[] = 'Атмосфера хозяев в этом матче была низкой, что создало им проблем на поле.';
-        } elseif ($this->gameData['home_atmosphere'] > 0) {
-            $result[] = 'Атмосфера хозяев в этом матче была высокой, что создало проблем сопернику.';
-        } elseif ($this->gameData['home_atmosphere'] < 0) {
-            $result[] = 'Атмосфера гостей в этом матче была низкой, что создало им проблем на поле.';
-        } elseif ($this->gameData['home_atmosphere'] > 0) {
-            $result[] = 'Атмосфера гостей в этом матче была высокой, что создало проблем сопернику.';
-        }
-
-        if ($this->gameData['home_optimality_1'] >= 105 && $this->gameData['guest_optimality_1'] >= 105) {
-            $result[] = 'Оба соперника показали запредельную Опт1 в матче - ' . $this->gameData['home_optimality_1'] . ' и ' . $this->gameData['guest_optimality_1'] . ' соответственно.';
-        } elseif ($this->gameData['home_optimality_1'] <= 90 && $this->gameData['guest_optimality_1'] <= 90) {
-            $result[] = 'Оба соперника показали крайне низкую Опт1 в матче - ' . $this->gameData['home_optimality_1'] . ' и ' . $this->gameData['guest_optimality_1'] . ' соответственно.';
-        } elseif ($this->gameData['home_optimality_1'] >= 105 && $this->gameData['guest_optimality_1'] <= 90) {
-            $result[] = 'Хозяева вчистую переиграли соперника по Опт1 - ' . $this->gameData['home_optimality_1'] . ' на ' . $this->gameData['guest_optimality_1'] . '.';
-        } elseif ($this->gameData['home_optimality_1'] <= 90 && $this->gameData['guest_optimality_1'] >= 105) {
-            $result[] = 'Гости вчистую переиграли соперника по Опт1 - ' . $this->gameData['guest_optimality_1'] . ' на ' . $this->gameData['home_optimality_1'] . '.';
-        } elseif ($this->gameData['home_optimality_1'] >= 105) {
-            $result[] = 'Хозяева показали запредельную Опт1 в матче - ' . $this->gameData['home_optimality_1'] . '.';
-        } elseif ($this->gameData['guest_optimality_1'] >= 105) {
-            $result[] = 'Гости показали запредельную Опт1 в матче - ' . $this->gameData['guest_optimality_1'] . '.';
-        } elseif ($this->gameData['home_optimality_1'] <= 90) {
-            $result[] = 'Хозяева выглядели на поле растеряннными при Опт1 в ' . $this->gameData['home_optimality_1'] . '.';
-        } elseif ($this->gameData['guest_optimality_1'] <= 90) {
-            $result[] = 'Гости выглядели на поле растеряннными при Опт1 в ' . $this->gameData['guest_optimality_1'] . '.';
-        }
-
-        if ($this->gameData['home_optimality_2'] >= 115 && $this->gameData['guest_optimality_2'] >= 115) {
-            $result[] = 'Оба соперника показали запредельную Опт2 в матче - ' . $this->gameData['home_optimality_2'] . ' и ' . $this->gameData['guest_optimality_2'] . ' соответственно.';
-        } elseif ($this->gameData['home_optimality_2'] <= 80 && $this->gameData['guest_optimality_2'] <= 80) {
-            $result[] = 'Оба соперника показали крайне низкую Опт2 в матче - ' . $this->gameData['home_optimality_2'] . ' и ' . $this->gameData['guest_optimality_2'] . ' соответственно.';
-        } elseif ($this->gameData['home_optimality_2'] >= 115 && $this->gameData['guest_optimality_2'] <= 80) {
-            $result[] = 'Хозяева вчистую переиграли соперника по Опт2 - ' . $this->gameData['home_optimality_2'] . ' на ' . $this->gameData['guest_optimality_2'] . '.';
-        } elseif ($this->gameData['home_optimality_2'] <= 80 && $this->gameData['guest_optimality_2'] >= 115) {
-            $result[] = 'Гости вчистую переиграли соперника по Опт2 - ' . $this->gameData['guest_optimality_2'] . ' на ' . $this->gameData['home_optimality_2'] . '.';
-        } elseif ($this->gameData['home_optimality_2'] >= 115) {
-            $result[] = 'Хозяева показали запредельную Опт2 в матче - ' . $this->gameData['home_optimality_2'] . '.';
-        } elseif ($this->gameData['guest_optimality_2'] >= 115) {
-            $result[] = 'Гости показали запредельную Опт2 в матче - ' . $this->gameData['guest_optimality_2'] . '.';
-        } elseif ($this->gameData['home_optimality_2'] <= 80) {
-            $result[] = 'Хозяева выглядели на поле растеряннными при Опт2 в ' . $this->gameData['home_optimality_2'] . '.';
-        } elseif ($this->gameData['guest_optimality_2'] <= 80) {
-            $result[] = 'Гости выглядели на поле растеряннными при Опт2 в ' . $this->gameData['guest_optimality_2'] . '.';
-        }
-
         if ('супер' == $this->gameData['home_mood'] && 'супер' == $this->gameData['guest_mood']) {
             $result[] = 'Оба тренера крайне серьезно подошли к игре и выставили обоюдный супер.';
         } elseif ('отдых' == $this->gameData['home_mood'] && 'отдых' == $this->gameData['guest_mood']) {
@@ -743,14 +673,6 @@ class ReviewService
             $result[] = 'Наставник гостевой команды счёл этот матч очень важным и использовал супер.';
         } elseif ('отдых' == $this->gameData['guest_mood']) {
             $result[] = 'Тренер гостей решил, что матч не имеет большей ценности и сыграл отдыхом.';
-        }
-
-        if ($this->gameData['home_teamwork'] >= 15 && $this->gameData['guest_teamwork'] >= 15) {
-            $result[] = 'Оба наставника хорошо сыграли свои составы - ' . $this->gameData['home_teamwork'] . ' и ' . $this->gameData['guest_teamwork'] . ' соответственно.';
-        } elseif ($this->gameData['home_teamwork'] >= 15) {
-            $result[] = 'Хозяева показали хорошую сыгранность в матче - ' . $this->gameData['home_teamwork'] . '.';
-        } elseif ($this->gameData['guest_teamwork'] >= 15) {
-            $result[] = 'Гости показали запредельную сыгранность в матче - ' . $this->gameData['guest_teamwork'] . '.';
         }
 
         return implode(PHP_EOL, $result);
