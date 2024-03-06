@@ -12,7 +12,6 @@ import LunchDishIndexPage from "../pages/lunch/dish/IndexPage";
 import LunchDishViewPage from "../pages/lunch/dish/ViewPage";
 import LunchDishEditPage from "../pages/lunch/dish/EditPage";
 import LunchMenuPage from "../pages/lunch/IndexPage";
-import ReviewPage from "../pages/vfleague/ReviewPage";
 
 const useRoutes = () => {
     return (
@@ -28,7 +27,6 @@ const useRoutes = () => {
                 <Route path="/lunch/dishes" element={<LunchDishIndexPage/>}/>
                 <Route path="/lunch/dishes/:id" element={<LunchDishViewPage/>}/>
                 <Route path="/lunch/dishes/edit/:id" element={<LunchDishEditPage/>}/>
-                <Route path="/vf-league/review" element={<ReviewPage/>}/>
                 <Route path="/logout" element={<LogoutPage/>}/>
             </Route>
 
